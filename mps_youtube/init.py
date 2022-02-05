@@ -265,7 +265,7 @@ def _get_version_info():
     if tuple(map(int, pafy_version.split('.'))) >= (0, 5, 0):
         pafy_version += " (" + pafy.backend + " backend)"
         if pafy.backend == "youtube-dl":
-            import yt_dlp as youtube_dl
+            import youtube_dl
             youtube_dl_version = youtube_dl.version.__version__
 
     out = "mpsyt version      : " + __version__
