@@ -1,3 +1,6 @@
 pafy
 youtube_dl
 pyreadline
+pyreadline
+yt-dlp
+pyperclip
