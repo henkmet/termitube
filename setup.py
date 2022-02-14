@@ -68,8 +68,9 @@ options = dict(
             "bundle_files": 1
         }
     },
-    package_data={"": ["LICENSE", "README.rst", "CHANGELOG"]},
-    long_description=open("README.rst").read()
+    package_data={"": ["LICENSE", "README.md", "CHANGELOG"]},
+    long_description_content_type='text/markdown',
+    long_description=open("README.md").read()
 )
 
 if sys.platform.startswith('linux'):
