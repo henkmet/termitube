@@ -35,6 +35,15 @@ options = dict(
     packages=['mps_youtube', 'mps_youtube.commands', 'mps_youtube.listview', 'mps_youtube.players'],
     entry_points={'console_scripts': ['mpsyt = mps_youtube:main.main']},
     install_requires=['pafy >= 0.3.82, != 0.4.0, != 0.4.1, != 0.4.2','youtube_dl','pyreadline'],
+    python_requires='>=3.6',
+    install_requires=[
+        'pafy >= 0.3.82, !=0.4.0, !=0.4.1, !=0.4.2',
+        'pyperclip',
+        'pyreadline ; platform_system=="Linux"'
+        'pyreadline3 ; platform_system=="Windows"',
+        'youtube-search-python',
+        'yt-dlp',
+    ],
     classifiers=[
         "Topic :: Utilities",
         "Topic :: Internet :: WWW/HTTP",
