@@ -323,7 +323,7 @@ class _Config:
             ConfigItem("fullscreen", False, require_known_player=True),
             ConfigItem("show_status", True),
             ConfigItem("always_repeat", False),
-            ConfigItem("columns", ""),
+            ConfigItem("columns", "date user likes dislikes"),
             ConfigItem("ddir", paths.get_default_ddir(), check_fn=check_ddir),
             ConfigItem("overwrite", True),
             ConfigItem("show_video", False),
