@@ -9,6 +9,7 @@ python setup.py sdist bdist_wheel
 
 import sys
 import os
+>>>>>>> 936e890 (feat(setup): extras dependencies for mpris)
 
 if sys.version_info < (3,0):
     sys.exit("Mps-youtube requires python 3.")
@@ -43,6 +44,12 @@ options = dict(
         'youtube_dl',
         'yt-dlp',
     ],
+    extras_require={
+        "mpris": [
+            "dbus-python>=1.2.18",
+            "PyGObject>=3.42.0",
+        ],
+    },
     classifiers=[
         "Topic :: Utilities",
         "Topic :: Internet :: WWW/HTTP",
@@ -88,6 +95,7 @@ if sys.platform.startswith('linux'):
 if os.name == "nt":
     try:
         import py2exe
+
         # Only setting these when py2exe imports successfully prevents warnings
         # in easy_install
         options['console'] = ['mpsyt']
