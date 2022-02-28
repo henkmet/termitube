@@ -11,6 +11,3 @@ __author__ = "iamtalhaasghar"
 __license__ = "GPLv3"
 __url__ = "https://github.com/henkmet/termitube"
 
-from . import init
-init.init()
-from . import main
