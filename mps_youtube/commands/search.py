@@ -1,11 +1,16 @@
-import re
-import json
-import math
 import base64
+import json
 import logging
 from datetime import datetime, timedelta
 
+import math
+import re
+import typing as T
 from argparse import ArgumentParser
+from datetime import datetime, timedelta
+from urllib import parse
+
+from .. import pafy
 
 parser = ArgumentParser()
 parser.add_argument('-d', '--duration', choices=('any', 'short', 'medium', 'long'))
@@ -16,11 +21,10 @@ parser.add_argument('search', nargs='+')
 
 import pafy
 
-from .. import g, c, screen, config, util, content, listview, contentquery
-from ..playlist import Video, Playlist
+from .. import c, config, content, contentquery, g, listview, screen, util
+from ..playlist import Playlist, Video
 from . import command
-from .songlist import plist, paginatesongs
-
+from .songlist import paginatesongs, plist
 
 ISO8601_TIMEDUR_EX = re.compile(r'PT((\d{1,3})H)?((\d{1,3})M)?((\d{1,2})S)?')
 
@@ -602,17 +606,29 @@ def mix(num):
             g.message = util.F('no mix')
 
 
-@command(r'url\s(.*[-_a-zA-Z0-9]{11}.*)', 'url')
-def yt_url(url, print_title=0):
-    """ Acess videos by urls. """
+@command(r"url\s(.*[-_a-zA-Z0-9]{11}.*)", "url")
+def yt_url(url: str, print_title: bool = False):
+    """Acess videos by urls.
+
+    If `print_title` is true only last title from unique parsed id will be printed.
+
+    If for example `vid1` and `vid2` have title `title1` and `title2`, respectively,
+    `yt_url('vid1 vid2 vid1', True)`
+    will print `title2` from `vid2` instead `title1` from last entry `vid1`.
+
+    Args:
+        url: youtube url
+        print_title: print title or not
+    """
     url_list = url.split()
 
     g.model.songs = []
 
-    for u in url_list:
+    v_ids = set()
+    v_title = None
+    for url in url_list:
         try:
             p = util.get_pafy(u)
-
         except (IOError, ValueError) as e:
             g.message = c.r + str(e) + c.w
             g.content = g.content or content.generate_songlist_display(
@@ -622,12 +638,13 @@ def yt_url(url, print_title=0):
         g.browse_mode = "normal"
         v = Video(p.videoid, p.title, p.length)
         g.model.songs.append(v)
+        v_ids.add(v_id)
 
     if not g.command_line:
         g.content = content.generate_songlist_display()
 
-    if print_title:
-        util.xprint(v.title)
+    if print_title and v_title:
+        util.xprint(v_title)
 
 
 @command(r'url_file\s(\S+)', 'url_file')
