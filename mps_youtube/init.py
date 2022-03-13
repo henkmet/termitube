@@ -1,11 +1,11 @@
+import argparse
+import logging
+import multiprocessing
 import os
+import platform
 import re
 import sys
-import logging
 import tempfile
-import argparse
-import platform
-import multiprocessing
 
 import pafy
 
@@ -28,6 +28,7 @@ except ImportError:
 from . import cache, g, __version__, __notes__, screen, c, paths, config
 from .util import has_exefile, dbg, xprint, load_player_info, assign_player
 from .helptext import helptext
+from .util import assign_player, dbg, has_exefile, load_player_info, xprint
 
 mswin = os.name == "nt"
 
@@ -268,11 +269,25 @@ def _get_version_info():
             import yt_dlp as youtube_dl
             youtube_dl_version = youtube_dl.version.__version__
 
-    out = "mpsyt version      : " + __version__
-    out += "\n   notes           : " + __notes__
-    out += "\npafy version       : " + pafy_version
-    if youtube_dl_version:
-        out += "\nyoutube-dl version : " + youtube_dl_version
+    from yt_dlp.version import __version__ as ytdlp_version
+
+    dbus_version = None
+    glib = False
+    try:
+        import dbus
+
+        dbus_version = dbus.__version__
+    except Exception:
+        pass
+    try:
+        from gi.repository import GLib
+
+        glib = True
+    except Exception:
+        pass
+
+    out = "yewtube version    : " + __version__
+    out += "\nyt_dlp version     : " + ytdlp_version
     out += "\nPython version     : " + sys.version
     out += "\nProcessor          : " + platform.processor()
     out += "\nMachine type       : " + platform.machine()
@@ -281,6 +296,8 @@ def _get_version_info():
     out += "\nsys.stdout.enc     : " + sys.stdout.encoding
     out += "\ndefault enc        : " + sys.getdefaultencoding()
     out += "\nConfig dir         : " + paths.get_config_dir()
+    out += "\ndbus               : " + str(dbus_version)
+    out += "\nglib               : " + str(glib)
 
     for env in "TERM SHELL LANG LANGUAGE".split():
         value = os.environ.get(env)

@@ -9,7 +9,6 @@ python setup.py sdist bdist_wheel
 
 import sys
 import os
->>>>>>> 936e890 (feat(setup): extras dependencies for mpris)
 
 if sys.version_info < (3,0):
     sys.exit("Mps-youtube requires python 3.")
