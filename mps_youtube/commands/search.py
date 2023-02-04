@@ -10,8 +10,6 @@ from argparse import ArgumentParser
 from datetime import datetime, timedelta
 from urllib import parse
 
-from .. import pafy
-
 parser = ArgumentParser()
 parser.add_argument('-d', '--duration', choices=('any', 'short', 'medium', 'long'))
 parser.add_argument('-a', '--after')
