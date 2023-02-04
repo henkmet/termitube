@@ -15,9 +15,11 @@ if sys.version_info < (3,0):
 
 from setuptools import setup
 
+VERSION = "custom"
+
 options = dict(
     name="mps-youtube",
-    version="custom",
+    version=VERSION,
     description="Terminal based YouTube player and downloader",
     keywords=["video", "music", "audio", "youtube", "stream", "download"],
     author="np1",
