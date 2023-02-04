@@ -9,7 +9,7 @@ __version__ = get_version_number()
 __notes__ = "released on 28 Jan 2022"
 __author__ = "iamtalhaasghar"
 __license__ = "GPLv3"
-__url__ = "https://github.com/mps-youtube/mps-youtube"
+__url__ = "https://github.com/henkmet/termitube"
 
 from . import init
 init.init()
