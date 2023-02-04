@@ -15,7 +15,7 @@ if sys.version_info < (3,0):
 
 from setuptools import setup
 
-VERSION = "0.2.9"
+VERSION = "0.2.8"
 
 options = dict(
     name="mps-youtube",
